@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0788ff">
+  <title>Koleksi — BRIAN Learning & Media Studio</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/collection.css">
+</head>
+<body class="collection-body">
+  <div class="collection-bg" aria-hidden="true"><div class="ambient blue"></div><div class="ambient cyan"></div><div class="dot-grid"></div></div>
+
+  <div class="collection-app">
+    <aside class="sidebar">
+      <a class="sidebar-brand" href="index.html"><span class="brand-icon small"><span>B</span></span><span><strong>BRIAN</strong><small>learning & media studio</small></span></a>
+      <div class="sidebar-rule"></div>
+      <div class="sidebar-label">KOLEKSI</div>
+      <nav class="side-nav" id="sideNav">
+        <button type="button" class="side-link active" data-category="Semua"><span class="side-symbol">▦</span><span class="side-text">Semua Aplikasi</span><b id="allCount">0</b></button>
+        <button type="button" class="side-link" data-category="Gim Edu"><span class="side-symbol">◉</span><span class="side-text">Gim Edu</span><b id="gameCount">0</b></button>
+        <button type="button" class="side-link" data-category="MPI"><span class="side-symbol">▣</span><span class="side-text">MPI</span><b id="mpiCount">0</b></button>
+        <button type="button" class="side-link" data-category="VLab/Simulasi"><span class="side-symbol">◇</span><span class="side-text">VLab / Simulasi</span><b id="vlabCount">0</b></button>
+        <button type="button" class="side-link" data-category="Aplikasi"><span class="side-symbol">▤</span><span class="side-text">Aplikasi</span><b id="appCount">0</b></button>
+      </nav>
+      <div class="sidebar-fill"></div>
+      <div class="sidebar-label">BANTUAN</div>
+      <nav class="side-nav compact-nav">
+        <button type="button" class="side-link secondary" data-info="petunjuk"><span class="side-symbol">?</span><span class="side-text">Petunjuk</span></button>
+        <button type="button" class="side-link secondary" data-info="syarat"><span class="side-symbol">§</span><span class="side-text">Syarat & Ketentuan</span></button>
+        <button type="button" class="side-link secondary" data-info="privasi"><span class="side-symbol">◈</span><span class="side-text">Kebijakan Privasi</span></button>
+      </nav>
+      <div class="sidebar-credit"><div class="credit-avatar"><img src="assets/images/creator.png" alt=""></div><div><strong>I Gusti Agung Rian Gunawan</strong><small>Guru Informatika</small></div></div>
+    </aside>
+
+    <main class="collection-main">
+      <header class="collection-topbar">
+        <a href="index.html" class="mobile-brand"><span class="brand-icon small"><span>B</span></span><strong>BRIAN</strong></a>
+        <div class="search-box"><span class="search-icon">⌕</span><input id="collectionSearch" type="search" placeholder="Cari game, media, simulasi..." aria-label="Cari koleksi"><button id="searchClear" class="clear-search hidden" title="Bersihkan pencarian">×</button></div>
+        <button class="top-add" id="openAddTop"><span>＋</span> Tambah Proyek</button>
+      </header>
+
+      <section class="catalog-area">
+        <div class="catalog-hero">
+          <div><div class="catalog-kicker">BRIAN LIBRARY · OFFLINE</div><h1 id="catalogTitle">Semua Aplikasi</h1><p id="catalogSubtitle">Kelola seluruh karya digital Anda dari satu ruang yang ringan, modern, dan tetap offline.</p></div>
+          <div class="catalog-summary"><div><strong id="visibleCount">0</strong><span>proyek</span></div><i></i><div><strong id="storageStatus">LOKAL</strong><span>penyimpanan</span></div></div>
+        </div>
+
+        <div class="collection-toolbar"><div class="chip-row" id="topChips"><button class="filter-chip active" data-category="Semua">Semua</button><button class="filter-chip" data-category="Gim Edu">Gim Edu</button><button class="filter-chip" data-category="MPI">MPI</button><button class="filter-chip" data-category="VLab/Simulasi">VLab / Simulasi</button><button class="filter-chip" data-category="Aplikasi">Aplikasi</button></div><button class="toolbar-info" data-info="petunjuk">ⓘ Cara kerja</button></div>
+
+        <div class="catalog-grid" id="catalogGrid"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Project dialog -->
+  <div class="dialog-backdrop hidden" id="projectDialog">
+    <div class="dialog-card large">
+      <div class="dialog-head"><div><div class="dialog-kicker" id="dialogKicker">TAMBAH PROYEK</div><h2 id="dialogTitle">Tambahkan karya baru</h2><p id="dialogSubtitle">Pilih folder yang berisi index.html beserta asetnya.</p></div><button class="dialog-close" data-close="projectDialog">×</button></div>
+      <form id="projectForm">
+        <input type="hidden" id="editingId" value="">
+        <div class="form-grid two">
+          <label class="field"><span>Nama proyek</span><input id="projectName" required placeholder="Contoh: Game Pecahan"></label>
+          <label class="field"><span>Kategori</span><select id="projectCategory"><option>Gim Edu</option><option>MPI</option><option>VLab/Simulasi</option><option>Aplikasi</option></select></label>
+        </div>
+        <label class="field"><span>Deskripsi singkat</span><textarea id="projectDesc" rows="3" placeholder="Jelaskan fungsi atau materi proyek..."></textarea></label>
+        <div id="importFields">
+          <div class="upload-card"><div class="upload-icon">↥</div><div><strong>Pilih folder proyek</strong><p>Folder harus memiliki <b>index.html</b>. CSS, JS, gambar, audio, dan aset lain akan disimpan bersama proyek.</p></div><label class="select-folder"><span>📁 Pilih Folder</span><input id="projectFolder" type="file" webkitdirectory directory multiple></label><div class="selected-files" id="selectedFiles">Belum ada folder dipilih.</div></div>
+        </div>
+        <label class="field"><span>Thumbnail <em>(opsional)</em></span><input id="projectThumb" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"></label>
+        <div class="editor-preview"><div class="preview-thumb" id="previewThumb"></div><div><strong id="previewName">Nama proyek</strong><span id="previewCategory">Gim Edu</span><p id="previewDesc">Deskripsi proyek akan muncul di sini.</p></div></div>
+        <div class="dialog-actions"><button type="button" class="btn-secondary" data-close="projectDialog">Batal</button><button type="submit" class="btn-primary" id="saveProject"><span>✓</span> Simpan Proyek</button></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Info dialog -->
+  <div class="dialog-backdrop hidden" id="infoDialog"><div class="dialog-card info-card"><div class="dialog-head"><div><div class="dialog-kicker" id="infoKicker">BANTUAN</div><h2 id="infoTitle">Petunjuk</h2></div><button class="dialog-close" data-close="infoDialog">×</button></div><div class="info-content" id="infoContent"></div></div></div>
+
+  <!-- Player -->
+  <div class="player-overlay hidden" id="playerOverlay">
+    <div class="player-topbar"><button class="player-home" id="playerBack"><span class="brand-icon micro"><span>B</span></span><span id="playerTitle">Project</span></button><div class="player-tools"><button id="playerReload" title="Muat ulang">↻</button><button id="playerFull" title="Fullscreen">⛶</button><button id="playerClose" title="Kembali ke koleksi">×</button></div></div>
+    <div class="player-stage" id="playerStage"><iframe id="projectFrame" title="Project" sandbox="allow-scripts allow-forms allow-modals allow-pointer-lock allow-popups allow-presentation allow-same-origin"></iframe><div class="float-nav"><button id="floatBack" title="Kembali ke koleksi">⌂</button><button id="floatFull" title="Fullscreen">⛶</button><button id="floatMore" title="Opsi">⋮</button></div><div class="float-menu hidden" id="floatMenu"><button id="floatReload">↻ Muat ulang</button><button id="floatBack2">⌂ Kembali ke koleksi</button></div></div>
+  </div>
+
+  <div class="toast hidden" id="toast"></div>
+  <script src="js/core.js"></script>
+  <script src="js/collection.js"></script>
+</body>
+</html>
