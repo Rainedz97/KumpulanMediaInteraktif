@@ -1,18 +1,3 @@
 {
- "projects": [
-  {
-   "id": "clash-of-champion",
-   "title": "Clash Of Champion",
-   "category": "Aplikasi",
-   "status": "live",
-   "description": "Game buka berangkas dimana setiap team akan berebutan membukanya dan mendapatkan poin",
-   "teacherNote": "",
-   "pinned": true,
-   "updatedAt": 1794561232230,
-   "type": "upload",
-   "entry": "projects/clash-of-champion/index.html",
-   "thumb": "thumbs/clash-of-champion-mwerbl1v.png",
-   "createdAt": 1794561061459
-  }
- ]
+ "projects": []
 }
