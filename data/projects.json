@@ -1,3 +1,18 @@
 {
- "projects": []
+ "projects": [
+  {
+   "id": "clash-of-champion",
+   "title": "Clash Of Champion",
+   "category": "Aplikasi",
+   "status": "live",
+   "description": "Game buka berangkas dan dapatkain poin",
+   "teacherNote": "",
+   "pinned": true,
+   "updatedAt": 1794561746202,
+   "type": "upload",
+   "entry": "projects/clash-of-champion/index.html",
+   "thumb": "",
+   "createdAt": 1794561746202
+  }
+ ]
 }
