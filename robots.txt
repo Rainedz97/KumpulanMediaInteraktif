@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /koleksi-saya
+
+Sitemap: https://GANTI-DENGAN-DOMAIN-ANDA/sitemap.xml

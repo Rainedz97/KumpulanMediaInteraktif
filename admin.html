@@ -1,0 +1,78 @@
+<!-- BRIAN Learning & Media Studio — © 2026 I Gusti Agung Rian Gunawan, S.Kom. Lihat LICENSE. -->
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin · BRIAN Studio</title>
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#f3f7fc;--card:#fff;--ink:#0b2540;--mute:#5b7089;--line:#d7e2ef;--acc:#0788ff;--bad:#c62f3d;--ok:#12805c}
+@media(prefers-color-scheme:dark){:root{--bg:#07182c;--card:#0d2744;--ink:#e8f3ff;--mute:#93aac4;--line:#1d3f66;--bad:#ff7b86;--ok:#4fd1a1}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:1.5rem;margin:0 0 4px}h2{font-size:1.05rem;margin:0 0 12px}p.s{color:var(--mute);margin:0 0 20px}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:16px}
+label{display:block;font-weight:600;margin:12px 0 4px}input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:600px){.row{grid-template-columns:1fr}}
+button{font:inherit;font-weight:600;padding:9px 16px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+button.o{background:transparent;color:var(--acc)}button.d{background:transparent;color:var(--bad);border-color:var(--bad)}button:disabled{opacity:.5;cursor:wait}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.acts{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}small{color:var(--mute)}
+.item{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}.item:first-child{border-top:0}
+.item img{width:84px;height:48px;object-fit:cover;border-radius:5px;background:var(--line)}.item div{flex:1;min-width:0}.item b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#log{margin-top:12px;min-height:1.5em;color:var(--ok);font-weight:600}#log.err{color:var(--bad)}
+</style>
+</head>
+<body>
+<main>
+<h1>Admin BRIAN Studio</h1>
+<p class="s">Tambah, ubah, dan hapus proyek. Setiap simpan menjadi satu commit di GitHub, lalu Vercel menerbitkannya otomatis (±1 menit). <a href="koleksi">Lihat koleksi</a></p>
+
+<section>
+<h2>Koneksi GitHub</h2>
+<div class="row"><div><label for="repo">Repository</label><input id="repo" placeholder="username/nama-repo" autocomplete="off"></div>
+<div><label for="branch">Branch</label><input id="branch" value="main" autocomplete="off"></div></div>
+<label for="token">Token akses</label><input id="token" type="password" placeholder="github_pat_…" autocomplete="off">
+<small>Buat <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">fine-grained token</a> khusus repo ini dengan izin <b>Contents: Read and write</b>. Token hanya disimpan di browser ini.</small>
+<div class="acts"><button id="connect">Simpan &amp; muat proyek</button><button id="forget" class="o">Hapus token dari browser</button></div>
+</section>
+
+<section id="formBox" hidden>
+<h2 id="formTitle">Tambah proyek</h2>
+<form id="form">
+<label for="name">Nama proyek</label><input id="name" required maxlength="80">
+<div class="row"><div><label for="cat">Kategori</label><select id="cat"><option>Gim Edu</option><option>MPI</option><option>VLab/Simulasi</option><option>Aplikasi</option></select></div>
+<div><label for="status">Status</label><select id="status"><option value="live">Terbit</option><option value="draft">Draf (disembunyikan)</option></select></div></div>
+<label style="display:flex;gap:6px;align-items:center;font-weight:400"><input type="checkbox" id="pinned" style="width:auto"> Jadikan proyek unggulan (tampil paling atas katalog)</label>
+<label for="desc">Deskripsi singkat</label><textarea id="desc" rows="3" maxlength="300"></textarea>
+<label for="teacherNote">Catatan untuk guru (opsional)</label><textarea id="teacherNote" rows="2" maxlength="400" placeholder="Tujuan pembelajaran, cara pakai di kelas…"></textarea>
+<label>Sumber proyek</label>
+<div class="row"><label style="font-weight:400;display:flex;gap:6px;align-items:center"><input type="radio" name="ptype" value="upload" checked style="width:auto"> Unggah file</label>
+<label style="font-weight:400;display:flex;gap:6px;align-items:center"><input type="radio" name="ptype" value="link" style="width:auto"> Tautan web</label></div>
+<div id="folderRow">
+<div class="row" style="margin-bottom:10px"><label style="font-weight:400;display:flex;gap:6px;align-items:center"><input type="radio" name="umode" value="folder" checked style="width:auto"> Pilih folder</label>
+<label style="font-weight:400;display:flex;gap:6px;align-items:center"><input type="radio" name="umode" value="zip" style="width:auto"> Unggah .zip</label></div>
+<div id="umodeFolder"><label for="folder">Folder proyek</label><input id="folder" type="file" webkitdirectory multiple><small>Folder harus berisi <b>index.html</b> di tingkat paling atas. Maksimal ±90 MB.</small></div>
+<div id="umodeZip" hidden><label for="zipFile">Berkas .zip</label><input id="zipFile" type="file" accept=".zip"><small>Zip boleh berisi satu folder pembungkus; <b>index.html</b> harus ada di dalamnya. Maksimal ±90 MB, metode kompresi STORED/DEFLATE.</small></div>
+</div>
+<div id="linkRow" hidden>
+<label for="linkUrl">Alamat situs (https://…)</label><input id="linkUrl" type="url" placeholder="https://nama-proyek.netlify.app">
+<div class="acts" style="margin-top:8px"><button type="button" id="testEmbed" class="o">Coba sematkan</button><small id="embedResult"></small></div>
+<label style="margin-top:14px"><input type="checkbox" id="embedMode" checked style="width:auto"> Tampilkan di dalam player (bukan tab baru)</label>
+</div>
+<label for="thumb">Thumbnail (opsional)</label><input id="thumb" type="file" accept="image/*">
+<div class="acts"><button id="saveBtn" type="submit">Terbitkan</button><button type="button" id="cancel" class="o" hidden>Batal edit</button></div>
+</form>
+</section>
+
+<section id="listBox" hidden><h2>Proyek terpublikasi</h2><div id="list"></div></section>
+<div id="log" role="status" aria-live="polite"></div>
+</main>
+<iframe id="embedTestFrame" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none" title="Uji sematkan" sandbox="allow-scripts allow-same-origin"></iframe>
+<script src="js/miniunzip.js"></script>
+<script src="js/admin.js"></script>
+  <script src="js/watermark.js"></script>
+</body>
+</html>
